@@ -93,35 +93,32 @@ def menu_elegir_personaje():
     max_jugadores = 4
 
     while len(jugadores) < max_jugadores and valor_total < 200:
-        opcion = input("Elige un personaje escribiendo su número (o 'q' para salir): ")
-
-        if opcion.lower() == "q":
-            print("¡Hasta la próxima!")
-            return None
-
-        try:
-            opcion = int(opcion)
-        except ValueError:
-            print("Opción inválida. Por favor, introduce un número o 'q' para salir.")
-            continue
-
-        if opcion < 1 or opcion > len(galeria):
-            print("Opción inválida. Por favor, elige un número de la lista.")
-            continue
-
-        personaje_elegido = galeria[opcion - 1]
+        nombre = input("Ingrese el nombre del jugador: ")
+        personaje_elegido = galeria[ - 1]
+        valor_total += personaje.valor
         
-        if not personaje_elegido.estado:
-            print("Ese personaje ya ha sido elegido. Por favor, elige otro.")
-            continue
+        # Verificar que el personaje no haya sido elegido antes
+        personaje_elegido = False
+        for jugador in jugadores:
+            if personaje in jugador.personajes:
+                personaje_elegido = True
+                break
+        
+        # Si el personaje ya ha sido elegido, imprimir un mensaje y no agregar al jugador
+        if personaje_elegido:
+            print(f"El personaje {personaje.nombre} ya ha sido elegido por otro jugador.")
+        else:
+            jugador = Jugador(nombre, personaje)
+            jugadores.append(jugador)
+            print(f"Jugador {nombre} ha elegido el personaje {personaje.nombre}.")
 
-        jugadores.append(personaje_elegido)
-        valor_total += personaje_elegido.valor    
-        personaje_elegido.estado = False
-        print(f"Has elegido a {personaje_elegido.nombre} ({personaje_elegido.tipo}) ({personaje_elegido.estado})")
-        print(f"El valor total de los personajes elegidos es {valor_total}.")
-        print(len(jugadores))
-        return personaje_elegido
+            jugadores.append(personaje_elegido)
+            valor_total += personaje_elegido.valor    
+            personaje_elegido.estado = False
+            print(f"Has elegido a {personaje_elegido.nombre} ({personaje_elegido.tipo}) ({personaje_elegido.estado})")
+            print(f"El valor total de los personajes elegidos es {valor_total}.")
+            print(len(jugadores))
+            return personaje_elegido
     
 
 # Programa principal
