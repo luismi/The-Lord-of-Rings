@@ -4,7 +4,9 @@
 ejercito_player1 = []
 ejercito_player2 =[]
 # Pedir al jugador que ingrese su nombre
-jugador = input("Ingrese su nombre: ")
+jugador1 = input("Ingrese su nombre: ")
+jugador2 = input("Ingrese su nombre: ")
+#Ejercito1 ={'nombre:':jugador1, ejercito_player1}
 
 soldado1 = {'nombre': 'Debil', 'valor': 25, 'ataque': 1,'defensa': 1,'salud': 50, 'estado' :True}
 soldado2 = {'nombre': 'Ofensivo', 'valor': 250, 'ataque': 2,'defensa': 4,'salud': 50, 'estado' :True}
@@ -14,16 +16,29 @@ soldado4 = {'nombre': 'Destructor', 'valor': 450, 'ataque': 3,'defensa': 5,'salu
 soldados_disponibles = [soldado1, soldado2, soldado3, soldado4]
 
 
+def menu_campo():   
+    print("===================================================")
+    print("         CAMPO DE BATALLA           ")
+    print("===================================================")
+    for j, soldado in enumerate(soldados_disponibles):
+        print(f"{j+1}. {soldado['nombre']} (valor: {soldado['valor']})")
+    print("----------------------------------------------------")
+    #for (i=0;i<MIEM_EJER;i++)
+    #{
+    #    cout <<"["<<i<<"] " << players1.miembros[i].nombre << " Ps:" << players1.miembros[i].salud  << "\t\t["<<i<<"] "
+    #    << players2.miembros[i].nombre << " Ps:" << players2.miembros[i].salud << endl;
+    #}
+    print("----------------------------------------------------")
+
+def imprimir_galeria():
+    # Mostrar soldados disponibles y puntos disponibles
+    for j, soldado in enumerate(soldados_disponibles):
+            print(f"{j+1}. {soldado['nombre']} (valor: {soldado['valor']})")
+
 def pedir_player1():
     puntos_disponibles = 1000
     # Pedir al jugador que seleccione 5 soldados
     for i in range(5):
-        # Mostrar soldados disponibles y puntos disponibles
-        print(f"Soldados disponibles (puntos disponibles: {puntos_disponibles}):")
-        for j, soldado in enumerate(soldados_disponibles):
-            print(f"{j+1}. {soldado['nombre']} (valor: {soldado['valor']})")
-        
-        # Pedir al jugador que seleccione un soldado
         while True:
             try:
                 seleccion = int(input("Seleccione un soldado (1-5): "))
@@ -37,7 +52,8 @@ def pedir_player1():
                     puntos_disponibles -= soldados_disponibles[seleccion-1]['valor']
                     break
             except ValueError:
-                print("Selección inválida, por favor seleccione un número entre 1 y 5")      
+                print("Selección inválida, por favor seleccione un número entre 1 y 4")
+                print(f"Puntos disponibles: {puntos_disponibles}")     
     print("Ejército configurado:")
     for soldado in ejercito_player1:
         print(soldado['nombre'])
@@ -76,6 +92,10 @@ def pedir_player2():
 # Programa principal
 
 while True:
+
+    menu_campo()
+    imprimir_galeria()
+
     # Mostrar opciones disponibles
     print(f"\n--- Menú ---")
     print("1. Configurar ejército player1")
@@ -90,5 +110,7 @@ while True:
         pedir_player1()
     elif seleccion == "2":
         pedir_player2()
+    elif seleccion == "3":
+        break
 
 
