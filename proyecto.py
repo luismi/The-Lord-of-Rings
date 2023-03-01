@@ -49,16 +49,20 @@ def pedir_player1():
                 elif soldados_disponibles[seleccion-1]['valor'] >  puntos_disponibles1:
                     print("No tiene suficientes puntos disponibles para seleccionar este soldado")
                 else:
-                    # Añadir soldado a la lista del ejército y restar su costo a los puntos disponibles
-                    ejercito_player1.append(soldados_disponibles[seleccion-1])
-                    puntos_disponibles1 -= soldados_disponibles[seleccion-1]['valor']
-                    break
+                    # Pedir al jugador que seleccione la posición del soldado en el ejército
+                    posicion = int(input("Seleccione la posición del soldado en el ejército (1-5): "))
+                    if posicion < 1 or posicion > 5:
+                        print("Posición inválida, por favor seleccione un número entre 1 y 5")
+                    else:
+                        # Insertar soldado en la posición seleccionada y restar su costo a los puntos disponibles
+                        ejercito_player1.insert(posicion-1, soldados_disponibles[seleccion-1])
+                        puntos_disponibles1 -= soldados_disponibles[seleccion-1]['valor']
+                        break
             except ValueError:
-                print("Selección inválida, por favor seleccione un número entre 1 y 4")
-                print(f"Puntos disponibles: {puntos_disponibles1}")     
+                print("Selección inválida, por favor seleccione un número entre 1 y 5")
+            print(f"Puntos disponibles: {puntos_disponibles1}")
+     
     print("Ejército configurado:")
-    for soldado in ejercito_player1:
-        print(soldado['nombre'])
     print(f"Puntos disponibles: {puntos_disponibles1}")
 
 def pedir_player2():
